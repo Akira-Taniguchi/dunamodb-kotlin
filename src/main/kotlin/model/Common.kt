@@ -57,13 +57,10 @@ internal fun getDynamoDbClient(): AmazonDynamoDB {
     val region = System.getenv("DYNAMODB_SERVICE_REGION") ?: ""
     var clientBuilder = AmazonDynamoDBClientBuilder.standard()
             .withEndpointConfiguration(AwsClientBuilder.EndpointConfiguration(serviceEndPoint, region))
-    val env = System.getenv("ENV") ?: ""
-    if (env == "") {
-        clientBuilder = clientBuilder.withCredentials(
-                AWSStaticCredentialsProvider(
-                        BasicAWSCredentials("", "")
-                )
-        )
-    }
+    clientBuilder = clientBuilder.withCredentials(
+            AWSStaticCredentialsProvider(
+                    BasicAWSCredentials("", "")
+            )
+    )
     return clientBuilder.build()
 }
